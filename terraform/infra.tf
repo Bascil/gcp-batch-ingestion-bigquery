@@ -1,7 +1,7 @@
 terraform {
   backend "gcs" {
-    bucket = "artisto-tf-state-gcp-batch-ingestion-bucket"
-    prefix = "wirepeople-state"
+    bucket = "artisto-terraform-state-gcp-batch-ingestion"
+    prefix = "terraform/state"
   }
 }
 
@@ -10,7 +10,7 @@ provider "google" {
   region = "us-central1"
 }
 
-resource "google_storage_bucket" "my-bucket" {
+resource "google_storage_bucket" "bucket" {
   name = "artisto-batch-pipeline"
   storage_class = "REGIONAL"
   location  = "us-central1"
