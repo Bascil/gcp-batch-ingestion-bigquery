@@ -33,6 +33,8 @@ steps:
       [
         'functions',
         'deploy',
+        '--runtime',
+        'nodejs8',
         'goWithTheDataFlow',
         '--stage-bucket=gs://artisto-batch-pipeline',
         '--trigger-bucket=gs://artisto-batch-pipeline',
@@ -41,13 +43,13 @@ steps:
     waitFor: ['npm-install-test']
 
   # 4. Trigger the pipeline for demo purposes
-  # - name: gcr.io/cloud-builders/gsutil
-  #   args:
-  #     [
-  #       'cp',
-  #       'gs://test-file-for-dataflow/*',
-  #       'gs://artisto-batch-pipeline/upload/file.csv',
-  #     ]
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      [
+        'cp',
+        'gs://test-file-for-dataflow/*',
+        'gs://artisto-batch-pipeline/upload/file.csv',
+      ]
 
 # 5. Copy tarball/archive to GCS for more shenanigans later
 artifacts:
