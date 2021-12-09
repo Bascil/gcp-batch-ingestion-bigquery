@@ -4,8 +4,16 @@ exports.goWithTheDataFlow = function (event, callback) {
   const file = event.data;
   const context = event.context;
 
-  console.log('File is: ', file);
-  console.log('State is: ', context.eventType);
+  console.log(`Event ${context.eventId}`);
+  console.log(`Event Type: ${context.eventType}`);
+  console.log(`Bucket: ${file.bucket}`);
+  console.log(`File: ${file.name}`);
+  console.log(`Metageneration: ${file.metageneration}`);
+  console.log(`Created: ${file.timeCreated}`);
+  console.log(`Updated: ${file.updated}`);
+
+  // console.log('File is: ', file);
+  // console.log('State is: ', context.eventType);
 
   if (
     context.eventType === 'google.storage.object.finalize' &&
