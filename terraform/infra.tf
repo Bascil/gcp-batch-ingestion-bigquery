@@ -6,7 +6,7 @@ terraform {
 }
 
 provider "google" {
-  project = "artisto"
+  project = "artisto-323218"
   region = "us-central1"
 }
 
