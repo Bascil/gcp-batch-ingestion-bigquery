@@ -34,8 +34,8 @@ steps:
         'functions',
         'deploy',
         'goWithTheDataFlow',
-        '--stage-bucket=gs://batch-pipeline',
-        '--trigger-bucket=gs://batch-pipeline',
+        '--stage-bucket=gs://artisto-batch-pipeline',
+        '--trigger-bucket=gs://artisto-batch-pipeline',
       ]
     dir: 'cloud-function'
     waitFor: ['npm-install-test']
@@ -46,11 +46,11 @@ steps:
       [
         'cp',
         'gs://test-file-for-dataflow/*',
-        'gs://batch-pipeline/upload/file.csv',
+        'gs://artisto-batch-pipeline/upload/file.csv',
       ]
 
 # 5. Copy tarball/archive to GCS for more shenanigans later
 artifacts:
   objects:
-    location: 'gs://batch-pipeline/artifacts'
+    location: 'gs://artisto-batch-pipeline/artifacts'
     paths: ['build/distributions/*.*']
