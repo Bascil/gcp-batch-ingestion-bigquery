@@ -22,11 +22,11 @@ dependencies {
 }
 
 run {
-    args = ["--project=grey-sort-challenge",
+    args = ["--project=artisto-323218",
             "--runner=DataflowRunner",
             "--maxNumWorkers=5",
             "--numWorkers=1",
-            "--zone=australia-southeast1-a",
+            "--zone=us-central1",
             "--stagingLocation=gs://artisto-batch-pipeline/jars",
             "--tempLocation=gs://artisto-batch-pipeline/tmp",
             "--templateLocation=gs://artisto-batch-pipeline/template/pipeline"
