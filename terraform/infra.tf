@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "artisto-tf-state-gcp-batch-ingestion"
+    bucket = "tf-state-gcp-batch-ingestion"
     prefix = "terraform/state"
   }
 }
