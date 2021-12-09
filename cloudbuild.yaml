@@ -1,5 +1,5 @@
 steps:
-  # 1. Fetch the source code
+  # 1. Fetch the source code from github
   # - name: gcr.io/cloud-builders/git
   #   args: ['clone', 'https://github.com/Bascil/gcp-batch-ingestion-bigquery']
 
