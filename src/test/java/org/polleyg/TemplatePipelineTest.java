@@ -40,7 +40,6 @@ public class TemplatePipelineTest {
         List<TableRow> output = fnTester.processBundle(input);
 
         Assert.assertThat(output, is(not(empty())));
-
         Assert.assertThat(output.get(0).get("year"), is(equalTo("2018")));
         Assert.assertThat(output.get(0).get("month"), is(equalTo("8")));
         Assert.assertThat(output.get(0).get("day"), is(equalTo("13")));
