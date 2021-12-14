@@ -30,7 +30,7 @@ steps:
         'functions',
         'deploy',
         '--runtime',
-        'nodejs8',
+        'nodejs14',
         'goWithTheDataFlow',
         '--stage-bucket=gs://artisto-batch-pipeline',
         '--trigger-bucket=gs://artisto-batch-pipeline',
