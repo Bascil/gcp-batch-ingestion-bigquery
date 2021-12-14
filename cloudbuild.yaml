@@ -1,7 +1,7 @@
 steps:
   # 1a. Set up GCS & BQ etc. using public terraform Docker image
   - name: hashicorp/terraform
-    args: ['init', '-reconfigure']
+    args: ['init']
     dir: 'terraform'
 
   # 1b. Create the GCS bucket using Terraform
@@ -38,16 +38,7 @@ steps:
     dir: 'cloud-function'
     waitFor: ['npm-install-test']
 
-  # 4. Trigger the pipeline for demo purposes
-  - name: gcr.io/cloud-builders/gsutil
-    args:
-      [
-        'cp',
-        'gs://test-file-for-dataflow/*',
-        'gs://artisto-batch-pipeline/upload/file.csv',
-      ]
-
-# 5. Copy tarball/archive to GCS for more shenanigans later
+# 4. Copy tarball/archive to GCS for more shenanigans later
 artifacts:
   objects:
     location: 'gs://artisto-batch-pipeline/artifacts'
