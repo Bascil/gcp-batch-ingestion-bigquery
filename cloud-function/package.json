@@ -5,6 +5,7 @@
   "devDependencies": {},
   "dependencies": {
     "googleapis": "^24.0.0",
+    "dotenv": "^10.0.0",
     "chai": "3.5.0",
     "co-mocha": "1.2.2",
     "sinon": "1.17.4",
