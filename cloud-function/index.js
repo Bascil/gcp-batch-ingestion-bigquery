@@ -1,7 +1,7 @@
 //gcloud --project=grey-sort-challenge functions deploy goWithTheDataFlow --stage-bucket gs://batch-pipeline --trigger-bucket gs://batch-pipeline
 // trigger a Dataflow pipeline from a Cloud Function which itself is
 // triggered upon upload of a new file in a GCS bucket
-const { google } = require('googleapis');
+const google = require('googleapis');
 exports.goWithTheDataFlow = function (data, context, callback) {
   const gcsEvent = data;
   const file = gcsEvent.name;
@@ -18,58 +18,47 @@ exports.goWithTheDataFlow = function (data, context, callback) {
     console.log(`Created: ${gcsEvent.timeCreated}`);
     console.log(`Updated: ${gcsEvent.updated}`);
 
-    google.auth.getApplicationDefault(function (err, authClient) {
+    google.auth.getApplicationDefault(function (err, authClient, projectId) {
       if (err) {
         throw err;
       }
-      // See https://cloud.google.com/compute/docs/authentication for more information on scopes
       if (
         authClient.createScopedRequired &&
         authClient.createScopedRequired()
       ) {
-        // Scopes can be specified either as an array or as a single, space-delimited string.
         authClient = authClient.createScoped([
           'https://www.googleapis.com/auth/cloud-platform',
           'https://www.googleapis.com/auth/userinfo.email',
         ]);
       }
-      google.auth.getDefaultProjectId(function (err, projectId) {
-        if (err || !projectId) {
-          console.error(
-            `Problems getting projectId (${projectId}). Err was: `,
-            err
-          );
-          throw err;
-        }
-
-        // trigger a Dataflow pipeline
-        const dataflow = google.dataflow({ version: 'v1b3', auth: authClient });
-        dataflow.projects.templates.create(
-          {
-            projectId: projectId,
-            resource: {
-              parameters: {
-                inputFile: `gs://${file.bucket}/${file}`,
-              },
-              jobName:
-                'called-from-a-cloud-function-batch-pipeline-' +
-                new Date().getTime(),
-              gcsPath: 'gs://artisto-batch-pipeline/template/pipeline',
-            },
-          },
-          function (err, response) {
-            if (err) {
-              console.error(
-                'Problem running dataflow template, error was: ',
-                err
-              );
-            }
-            console.log('Dataflow template response: ', response);
-            return;
-            //callback();
-          }
-        );
+      const dataflow = google.dataflow({
+        version: 'v1b3',
+        auth: authClient,
       });
+      dataflow.projects.templates.create(
+        {
+          projectId: projectId,
+          resource: {
+            parameters: {
+              inputFile: `gs://${file.bucket}/${file}`,
+            },
+            jobName:
+              'dataflow-triggered-by-cloud-function-' + new Date().getTime(),
+            gcsPath: 'gs://artisto-batch-pipeline/template/pipeline',
+          },
+        },
+        function (err, response) {
+          if (err) {
+            console.error(
+              'Problems occurred while running dataflow template, error was: ',
+              err
+            );
+          }
+          console.log('The dataflow template response: ', response);
+          return;
+          //callback();
+        }
+      );
     });
   } else {
     console.log('Nothing to do here, ignoring.');
