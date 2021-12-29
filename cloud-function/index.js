@@ -1,14 +1,13 @@
 //gcloud --project=grey-sort-challenge functions deploy goWithTheDataFlow --stage-bucket gs://batch-pipeline --trigger-bucket gs://batch-pipeline
-require('dotenv').config();
 const google = require('googleapis');
-exports.goWithTheDataFlow = function (event, callback) {
-  const file = event.data;
-  const context = event.context;
-
-  console.log(`Event ${context.eventId}`);
+exports.goWithTheDataFlow = function (file, context) {
+  console.log(`Event: ${context.eventId}`);
   console.log(`Event Type: ${context.eventType}`);
   console.log(`Bucket: ${file.bucket}`);
   console.log(`File: ${file.name}`);
+  console.log(`Metageneration: ${file.metageneration}`);
+  console.log(`Created: ${file.timeCreated}`);
+  console.log(`Updated: ${file.updated}`);
 
   if (
     context.eventType === 'google.storage.object.finalize' &&
