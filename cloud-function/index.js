@@ -14,7 +14,7 @@ exports.goWithTheDataFlow = function (data, context, callback) {
 
   if (
     context.eventType === 'google.storage.object.finalize' &&
-    file.name.indexOf('upload/') !== -1
+    file.indexOf('upload/') !== -1
   ) {
     google.auth.getApplicationDefault(function (err, authClient) {
       if (err) {
@@ -61,6 +61,7 @@ exports.goWithTheDataFlow = function (data, context, callback) {
               );
             }
             console.log('Dataflow template response: ', response);
+            return;
             //callback();
           }
         );
@@ -68,6 +69,7 @@ exports.goWithTheDataFlow = function (data, context, callback) {
     });
   } else {
     console.log('Nothing to do here, ignoring.');
+    return;
     //callback();
   }
 };
