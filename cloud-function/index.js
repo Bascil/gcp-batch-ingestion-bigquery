@@ -30,8 +30,6 @@ exports.goWithTheDataFlow = function (data, context, callback) {
         // Scopes can be specified either as an array or as a single, space-delimited string.
         authClient = authClient.createScoped([
           'https://www.googleapis.com/auth/cloud-platform',
-          'https://www.googleapis.com/auth/compute',
-          'https://www.googleapis.com/auth/compute.readonly',
           'https://www.googleapis.com/auth/userinfo.email',
         ]);
       }
@@ -51,7 +49,7 @@ exports.goWithTheDataFlow = function (data, context, callback) {
             projectId: projectId,
             resource: {
               parameters: {
-                inputFile: `gs://${file.bucket}/${file.name}`,
+                inputFile: `gs://${file.bucket}/${file}`,
               },
               jobName:
                 'called-from-a-cloud-function-batch-pipeline-' +
