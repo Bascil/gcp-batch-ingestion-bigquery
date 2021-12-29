@@ -3,6 +3,7 @@ const { google } = require('googleapis');
 exports.goWithTheDataFlow = function (data, context, callback) {
   const gcsEvent = data;
   const file = gcsEvent.name;
+  const bucket = gcsEvent.bucket;
 
   if (
     context.eventType === 'google.storage.object.finalize' &&
@@ -32,12 +33,15 @@ exports.goWithTheDataFlow = function (data, context, callback) {
         version: 'v1b3',
         auth: authClient,
       });
+
+      console.log('Project Id', projectId);
+
       dataflow.projects.templates.create(
         {
           projectId: projectId,
           resource: {
             parameters: {
-              inputFile: `gs://${file.bucket}/${file}`,
+              inputFile: `gs://${bucket}/${file}`,
             },
             jobName:
               'dataflow-triggered-by-cloud-function-' + new Date().getTime(),
