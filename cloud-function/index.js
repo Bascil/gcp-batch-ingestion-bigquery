@@ -1,23 +1,23 @@
 //gcloud --project=grey-sort-challenge functions deploy goWithTheDataFlow --stage-bucket gs://batch-pipeline --trigger-bucket gs://batch-pipeline
 // trigger a Dataflow pipeline from a Cloud Function which itself is
 // triggered upon upload of a new file in a GCS bucket
-const { google } = require('googleapis');
+const google = require('googleapis');
 exports.goWithTheDataFlow = function (data, context, callback) {
   const gcsEvent = data;
   const file = gcsEvent.name;
-
-  console.log(`Processing file: ${gcsEvent.name}`);
-  console.log(`Event ${context.eventId}`);
-  console.log(`Event Type: ${context.eventType}`);
-  console.log(`Bucket: ${gcsEvent.bucket}`);
-  console.log(`Metageneration: ${gcsEvent.metageneration}`);
-  console.log(`Created: ${gcsEvent.timeCreated}`);
-  console.log(`Updated: ${gcsEvent.updated}`);
 
   if (
     context.eventType === 'google.storage.object.finalize' &&
     file.indexOf('upload/') !== -1
   ) {
+    console.log(`Processing file: ${gcsEvent.name}`);
+    console.log(`Event ${context.eventId}`);
+    console.log(`Event Type: ${context.eventType}`);
+    console.log(`Bucket: ${gcsEvent.bucket}`);
+    console.log(`Metageneration: ${gcsEvent.metageneration}`);
+    console.log(`Created: ${gcsEvent.timeCreated}`);
+    console.log(`Updated: ${gcsEvent.updated}`);
+
     google.auth.getApplicationDefault(function (err, authClient) {
       if (err) {
         throw err;
