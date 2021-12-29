@@ -26,7 +26,7 @@ run {
             "--runner=DataflowRunner",
             "--maxNumWorkers=5",
             "--numWorkers=1",
-            "--zone=us-central1",
+            "--zone=us-central1-a",
             "--stagingLocation=gs://artisto-batch-pipeline/jars",
             "--tempLocation=gs://artisto-batch-pipeline/tmp",
             "--templateLocation=gs://artisto-batch-pipeline/template/pipeline"
