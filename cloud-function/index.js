@@ -1,7 +1,7 @@
 //gcloud --project=grey-sort-challenge functions deploy goWithTheDataFlow --stage-bucket gs://batch-pipeline --trigger-bucket gs://batch-pipeline
 // trigger a Dataflow pipeline from a Cloud Function which itself is
 // triggered upon upload of a new file in a GCS bucket
-const { google } = require('googleapis');
+const google = require('googleapis');
 exports.goWithTheDataFlow = function (data, context, callback) {
   const gcsEvent = data;
   const file = gcsEvent.name;
