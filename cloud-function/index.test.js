@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const index = require('./index');
-const google = require('googleapis');
+const { google } = require('googleapis');
 
 describe('The cloud function', function () {
   it('Check eventType & file path', function* () {
