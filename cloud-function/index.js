@@ -61,13 +61,13 @@ exports.goWithTheDataFlow = function (data, context, callback) {
               );
             }
             console.log('Dataflow template response: ', response);
-            callback();
+            //callback();
           }
         );
       });
     });
   } else {
     console.log('Nothing to do here, ignoring.');
-    callback();
+    //callback();
   }
 };
